@@ -1,6 +1,8 @@
 import {k} from "./kaboomCtx";
 
 async function gameSetup() {
+
+    // Loading in sprites from png map and giving them variables
     k.loadSprite("assets", "./spookyCharacter.png", {
         sliceX: 9,
         sliceY: 5,
