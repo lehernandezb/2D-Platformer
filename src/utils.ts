@@ -4,7 +4,7 @@ import type { KaboomCtx } from "kaboom";
 export async function makeMap(k: KaboomCtx, name : string) {
 
     // fetching data from level
-    const mapData = await (await fetch('./${name}.json')).json();
+    const mapData = await (await fetch(`./${name}.tmj`)).json();
     
     // making map
     const map = k.make([k.sprite(name), k.scale(scale), k.pos(0)]);
@@ -30,7 +30,7 @@ export async function makeMap(k: KaboomCtx, name : string) {
                     collider.name !== 'exit' ? k.body({isStatic: true}) : null,
                     k.pos(collider.x, collider.y),
                     collider.name !== "exit" ? "platform" : "exit"
-                ])
+                ]);
             }
             continue;
         }
@@ -44,7 +44,7 @@ export async function makeMap(k: KaboomCtx, name : string) {
                     spawnPoints[spawnPoint.name].push({
                         x: spawnPoint.x,
                         y: spawnPoint.y,
-                    })
+                    });
                     continue;
                 }
 
