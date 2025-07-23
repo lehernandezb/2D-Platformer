@@ -72,5 +72,29 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
             k.easings.linear
         );
 
+
+        // Going to next level
+        player.onCollide("exit", () => {
+            k.go("level-2");
+        });
+
+        // Shooting animation, will always be on, only changed opacity
+        const shootingEffect = k.add([
+            k.sprite("assets", {anim: "spookShooting"}),
+            k.pos(),
+            k.scale(scale),
+            k.opacity(0),
+            "shootingEffect"
+        ]);
+
+        // Shooting hitbox
+        const shootingZone = k.add([
+            k.area({shape: new k.Rect(k.vec2(0), 20, 4)}),
+            k.pos(),
+            "shootingZone"
+        ]);
+
+        
+
     })
 }
