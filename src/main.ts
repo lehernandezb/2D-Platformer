@@ -1,6 +1,7 @@
 import {k} from "./kaboomCtx";
 import { makeMap } from "./utils";
 
+// game play functuion
 async function gameSetup() {
 
     // Loading in sprites from png map and giving them variables
@@ -16,13 +17,16 @@ async function gameSetup() {
         }
     });
 
+    // loading first level
     k.loadSprite("level-1", "./level-1.png");
 
+    //loading map
     const {map: level1Layout, spawnPoints: level1SpawnPoints} = await makeMap(
         k,
         "level-1"
     );
 
+    // loading scene
     k.scene("level-1", () => {
         k.setGravity(2100);
         k.add([
