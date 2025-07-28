@@ -21,7 +21,7 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
         k.area({shape : new k.Rect(k.vec2(4,5.9), 8 , 10)}),
         k.body(),
         k.pos(posx * scale, posy * scale),
-        k.scale(scale),
+        k.scale(3),
         k.doubleJump(2),
         k.health(3),
         k.opacity(1),

@@ -6,7 +6,7 @@ import { makeMap } from "./utils";
 async function gameSetup() {
 
     // Loading in sprites from png map and giving them variables
-    k.loadSprite("assets", "./spookyCharacter.png", {
+    k.loadSprite("assets", "./spookyCharacters.png", {
         sliceX: 9,
         sliceY: 5,
         anims: {
@@ -37,6 +37,9 @@ async function gameSetup() {
         ]);
 
         k.add(level1Layout);
+
+        // Debug: log spawn points
+        console.log("Spawn points:", level1SpawnPoints);
 
         const ghost = makePlayer(
             k, 
