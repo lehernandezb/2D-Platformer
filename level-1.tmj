@@ -288,7 +288,7 @@
                 {
                  "height":0,
                  "id":19,
-                 "name":"Player",
+                 "name":"player",
                  "point":true,
                  "rotation":0,
                  "type":"",

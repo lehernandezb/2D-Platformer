@@ -111,4 +111,13 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
         shootingEffect.pos = k.vec2(player.pos.x + 60, player.pos.y + 0);
         shootingEffect.flipX = false;
     });
+
+    // If player falls then respon (AKA death)
+    player.onUpdate(() =>{
+        if (player.pos.y > 2000) {
+            k.go("level-1");
+        }
+    });
+
+    return player;
 }
