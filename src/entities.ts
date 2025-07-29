@@ -1,4 +1,4 @@
-import type { GameObj, KaboomCtx } from "kaboom";
+import type { AreaComp, BodyComp, DoubleJumpComp, GameObj, HealthComp, KaboomCtx, OpacityComp, PosComp, ScaleComp, SpriteComp } from "kaboom";
 import { scale } from "./constants";
 
 // Reducing magic numbers
@@ -120,4 +120,24 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
     });
 
     return player;
+}
+
+type PlayerGameObj = GameObj<
+    SpriteComp &
+    AreaComp &
+    BodyComp &
+    PosComp &
+    ScaleComp &
+    DoubleJumpComp &
+    HealthComp &
+    OpacityComp & {
+        speed: number;
+        direction: String;
+        isShooting: boolean;
+        isLow: boolean;
+    }
+>;
+
+export function setControls(k: KaboomCtx, player: GameObj) {
+
 }

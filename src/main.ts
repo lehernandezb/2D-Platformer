@@ -49,7 +49,7 @@ async function gameSetup() {
 
         k.add(ghost);
 
-        k.camScale(0.7, 0.7);
+        k.camScale(0.5, 0.5);
         k.onUpdate(() => {
             if (ghost.pos.x < level1Layout.pos.x + 432){
                 k.camPos(ghost.pos.x + 500, 800);
