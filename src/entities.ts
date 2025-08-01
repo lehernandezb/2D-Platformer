@@ -6,6 +6,24 @@ const targetOpacityAfterHit: number = 0;
 const targetOpacityWhenRecovering = 1;
 const timingOfOpacityChange: number = 0.05;
 
+
+type PlayerGameObj = GameObj<
+    SpriteComp &
+    AreaComp &
+    BodyComp &
+    PosComp &
+    ScaleComp &
+    DoubleJumpComp &
+    HealthComp &
+    OpacityComp & {
+        speed: number;
+        direction: String;
+        isShooting: boolean;
+        isEmpty: boolean;
+    }
+>;
+
+
 /**
  * Method to make player and their logic
  * 
@@ -122,22 +140,34 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
     return player;
 }
 
-type PlayerGameObj = GameObj<
-    SpriteComp &
-    AreaComp &
-    BodyComp &
-    PosComp &
-    ScaleComp &
-    DoubleJumpComp &
-    HealthComp &
-    OpacityComp & {
-        speed: number;
-        direction: String;
-        isShooting: boolean;
-        isLow: boolean;
-    }
->;
+export function setControls(k: KaboomCtx, player: PlayerGameObj) {
+    const shootingEffect = k.get("spookShooting")[0];
 
-export function setControls(k: KaboomCtx, player: GameObj) {
+    k.onKeyDown((key) => {
+        switch (key){
+            case "left":
+                player.direction = "left";
+                player.flipX = true;
+                player.move(player.speed, 0);
+                break;
+            case "right":
+            player.direction = "right";
+                player.flipX = false;
+                player.move(player.speed, 0);
+                break;
+            case "z":
+                if (player.isEmpty) {
+                    player.play("spookLow");
+                    shootingEffect.opacity = 0;
+                    break;
+                } else {
+                    player.isEmpty = true;
+                    player.play("spookShooting");
+                    shootingEffect.opacity = 1;
+                    break;
+                }
+            default:            
 
+        }
+    });
 }
