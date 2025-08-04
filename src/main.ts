@@ -47,8 +47,10 @@ async function gameSetup() {
             level1SpawnPoints.player[0].y
         );
 
+        // Adding player
         k.add(ghost);
 
+        // Setting cam size
         k.camScale(0.5, 0.5);
         k.onUpdate(() => {
             if (ghost.pos.x < level1Layout.pos.x + 432){
@@ -57,6 +59,7 @@ async function gameSetup() {
         });
     });
 
+    // Starting in level one 
     k.go("level-1");
 }
 

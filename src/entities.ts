@@ -6,7 +6,7 @@ const targetOpacityAfterHit: number = 0;
 const targetOpacityWhenRecovering = 1;
 const timingOfOpacityChange: number = 0.05;
 
-
+// Player object
 type PlayerGameObj = GameObj<
     SpriteComp &
     AreaComp &
@@ -140,10 +140,21 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
     return player;
 }
 
+/**
+ * Function used to create the controls for the user.
+ * 
+ * @param k 
+ * @param player 
+ */
 export function setControls(k: KaboomCtx, player: PlayerGameObj) {
+
+    // Grabing shooting effect
     const shootingEffect = k.get("spookShooting")[0];
 
+    // Function acitvates when a key is pressed
     k.onKeyDown((key) => {
+
+        // Diffrent keys
         switch (key){
             case "left":
                 player.direction = "left";
