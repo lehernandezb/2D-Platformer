@@ -159,10 +159,10 @@ export function setControls(k: KaboomCtx, player: PlayerGameObj) {
             case "left":
                 player.direction = "left";
                 player.flipX = true;
-                player.move(player.speed, 0);
+                player.move(-player.speed, 0);
                 break;
             case "right":
-            player.direction = "right";
+                player.direction = "right";
                 player.flipX = false;
                 player.move(player.speed, 0);
                 break;
@@ -171,12 +171,13 @@ export function setControls(k: KaboomCtx, player: PlayerGameObj) {
                     player.play("spookLow");
                     shootingEffect.opacity = 0;
                     break;
-                } else {
-                    player.isEmpty = true;
-                    player.play("spookShooting");
-                    shootingEffect.opacity = 1;
-                    break;
-                }
+                } 
+
+                player.isShooting = true;
+                player.play("spookShooting");
+                shootingEffect.opacity = 1;
+                break;
+
             default:            
 
         }

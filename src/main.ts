@@ -1,4 +1,4 @@
-import { makePlayer } from "./entities";
+import { makePlayer, setControls } from "./entities";
 import {k} from "./kaboomCtx";
 import { makeMap } from "./utils";
 
@@ -49,6 +49,7 @@ async function gameSetup() {
 
         // Adding player
         k.add(ghost);
+        setControls(k, ghost);
 
         // Setting cam size
         k.camScale(0.5, 0.5);
