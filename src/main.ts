@@ -1,3 +1,4 @@
+import { scale } from "./constants";
 import { makePlayer, setControls } from "./entities";
 import {k} from "./kaboomCtx";
 import { makeMap } from "./utils";
@@ -20,6 +21,8 @@ async function gameSetup() {
 
     // loading first level
     k.loadSprite("level-1", "./level-1.png");
+
+    k.add([k.rect(k.width(), k.height()), k.color(0, 0, 0), k.fixed()]);
 
     //loading map
     const {map: level1Layout, spawnPoints: level1SpawnPoints} = await makeMap(
@@ -52,7 +55,7 @@ async function gameSetup() {
         setControls(k, ghost);
 
         // Setting cam size
-        k.camScale(0.5, 0.5);
+        k.camScale(0.7, 0.7);
         k.onUpdate(() => {
             if (ghost.pos.x < level1Layout.pos.x + 432){
                 k.camPos(ghost.pos.x + 500, 800);

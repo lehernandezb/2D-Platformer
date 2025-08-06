@@ -36,7 +36,7 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
     // Player object
     const player = k.make([
         k.sprite("assets", {anim : "spookIdle"}),
-        k.area({shape : new k.Rect(k.vec2(4,5.9), 8 , 10)}),
+        k.area({shape : new k.Rect(k.vec2(4,5.9), 26 , 26)}),
         k.body(),
         k.pos(posx * scale, posy * scale),
         k.scale(3),
@@ -99,7 +99,7 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
 
     // Shooting animation, will always be on, only changed opacity
     const shootingEffect = k.add([
-        k.sprite("assets", {anim: "spookShooting"}),
+        k.sprite("assets", {anim: "spookBeam"}),
         k.pos(),
         k.scale(scale),
         k.opacity(0),
@@ -149,24 +149,24 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
 export function setControls(k: KaboomCtx, player: PlayerGameObj) {
 
     // Grabing shooting effect
-    const shootingEffect = k.get("spookShooting")[0];
+    const shootingEffect = k.get("shootingEffect")[0];
 
     // Function acitvates when a key is pressed
     k.onKeyDown((key) => {
 
         // Diffrent keys
         switch (key){
-            case "left":
+            case "a":
                 player.direction = "left";
                 player.flipX = true;
                 player.move(-player.speed, 0);
                 break;
-            case "right":
+            case "d":
                 player.direction = "right";
                 player.flipX = false;
                 player.move(player.speed, 0);
                 break;
-            case "z":
+            case "e":
                 if (player.isEmpty) {
                     player.play("spookLow");
                     shootingEffect.opacity = 0;
@@ -174,7 +174,7 @@ export function setControls(k: KaboomCtx, player: PlayerGameObj) {
                 } 
 
                 player.isShooting = true;
-                player.play("spookShooting");
+                player.play("spookBeam");
                 shootingEffect.opacity = 1;
                 break;
 
