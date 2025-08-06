@@ -14,7 +14,7 @@ async function gameSetup() {
             spookIdle: 0,
             spookShooting: 1,
             spookLow: 2,
-            spookBeam: {from: 10, to: 17, speed: 15, loop: true},
+            spookBeam: {from: 10, to: 17, speed: 10, loop: true},
             guyWalk: {from: 19, to: 20, speed: 4, loop: true}
         }
     });

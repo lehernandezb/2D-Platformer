@@ -40,7 +40,7 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
         k.body(),
         k.pos(posx * scale, posy * scale),
         k.scale(3),
-        k.doubleJump(2),
+        k.doubleJump(3),
         k.health(3),
         k.opacity(1),
         {
@@ -119,14 +119,14 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
         // If player is looking left
         if (player.direction === "left") {
             shootingZone.pos = k.vec2(-14, 8);
-            shootingEffect.pos = k.vec2(player.pos.x - 60, player.pos.y + 0);
+            shootingEffect.pos = k.vec2(player.pos.x - 100, player.pos.y - 20);
             shootingEffect.flipX = true;
             return;
         }
 
         // If player is looking right
         shootingZone.pos = k.vec2(14,8);
-        shootingEffect.pos = k.vec2(player.pos.x + 60, player.pos.y + 0);
+        shootingEffect.pos = k.vec2(player.pos.x + 100, player.pos.y - 20);
         shootingEffect.flipX = false;
     });
 
@@ -149,7 +149,7 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
 export function setControls(k: KaboomCtx, player: PlayerGameObj) {
 
     // Grabing shooting effect
-    const shootingEffect = k.get("shootingEffect")[0];
+    const shootingEffectRef = k.get("shootingEffect")[0];
 
     // Function acitvates when a key is pressed
     k.onKeyDown((key) => {
@@ -169,17 +169,29 @@ export function setControls(k: KaboomCtx, player: PlayerGameObj) {
             case "e":
                 if (player.isEmpty) {
                     player.play("spookLow");
-                    shootingEffect.opacity = 0;
+                    shootingEffectRef.opacity = 0;
                     break;
                 } 
 
                 player.isShooting = true;
-                player.play("spookBeam");
-                shootingEffect.opacity = 1;
+                player.play("spookShooting");
+                shootingEffectRef.opacity = 1;
                 break;
 
             default:            
 
+        }
+    });
+
+    k.onKeyPress((key) => {
+        if (key ==="space") { player.doubleJump();}
+    });
+
+    k.onKeyRelease((key) => {
+        if (key === "e") {
+            if (player.isEmpty) {
+                player.play("shootingEffect")
+            }
         }
     });
 }
