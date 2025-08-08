@@ -151,7 +151,7 @@ export function setControls(k: KaboomCtx, player: PlayerGameObj) {
     // Grabing shooting effect
     const shootingEffectRef = k.get("shootingEffect")[0];
 
-    // Function acitvates when a key is pressed
+    // Function acitvates when a key is down
     k.onKeyDown((key) => {
 
         // Diffrent keys
@@ -183,10 +183,12 @@ export function setControls(k: KaboomCtx, player: PlayerGameObj) {
         }
     });
 
+    // Function acitvates when a key is pressed
     k.onKeyPress((key) => {
         if (key ==="space") { player.doubleJump();}
     });
 
+    // Function acitvates when a key is released
     k.onKeyRelease((key) => {
         if (key === "e") {
             if (player.isEmpty) {
