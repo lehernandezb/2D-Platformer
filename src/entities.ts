@@ -107,8 +107,8 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
     ]);
 
     // Shooting hitbox
-    const shootingZone = k.add([
-        k.area({shape: new k.Rect(k.vec2(0), 20, 4)}),
+    const shootingZone = player.add([
+        k.area({shape: new k.Rect(k.vec2(0), 40, 15)}),
         k.pos(),
         "shootingZone"
     ]);
@@ -118,14 +118,14 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
 
         // If player is looking left
         if (player.direction === "left") {
-            shootingZone.pos = k.vec2(-14, 8);
+            shootingZone.pos = k.vec2(-35, 9);
             shootingEffect.pos = k.vec2(player.pos.x - 100, player.pos.y - 20);
             shootingEffect.flipX = true;
             return;
         }
 
         // If player is looking right
-        shootingZone.pos = k.vec2(14,8);
+        shootingZone.pos = k.vec2(32,9);
         shootingEffect.pos = k.vec2(player.pos.x + 100, player.pos.y - 20);
         shootingEffect.flipX = false;
     });
