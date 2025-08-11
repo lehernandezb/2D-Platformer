@@ -193,10 +193,46 @@ export function setControls(k: KaboomCtx, player: PlayerGameObj) {
         if (key === "shift") {
             if (player.isEmpty) {
                 player.play("shootingEffect")
+                k.wait(1, () => {
+                player.isEmpty = false;
+                player.play("spookIdle")
+            })
             }
             shootingEffectRef.opacity = 0;
             player.isEmpty = false;
-            player.play("spookIdle");
+            player.play("spookIdle")
+        }
+    });
+}
+
+
+/**
+ * Functionm handles how to get rid of an enemy if they are shootable.
+ * 
+ * @param k 
+ * @param enemy 
+ */
+export function makeShootable(k: KaboomCtx, enemy: GameObj) {
+
+    // If enemy is in shooting zone
+    enemy.onCollide("shootingZone", () => {
+        enemy.isShotable = true;
+    });
+
+    // When they stop colliding the enemy is no longer shotable
+    enemy.onCollideEnd("shootingZone", () => {
+        enemy.isShotable = false;
+    });
+
+    // Moving the enemy off screan "killing" them
+    const playerRef = k.get("player")[0];
+    enemy.onUpdate(() => {
+        if (playerRef.isShooting && enemy.isShotable){
+            if(playerRef.direction === "right"){
+                enemy.move(-800,0);
+                return;
+            }
+            enemy.move(800,0);
         }
     });
 }
