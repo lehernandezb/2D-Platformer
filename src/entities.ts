@@ -166,7 +166,7 @@ export function setControls(k: KaboomCtx, player: PlayerGameObj) {
                 player.flipX = false;
                 player.move(player.speed, 0);
                 break;
-            case "e":
+            case "shift":
                 if (player.isEmpty) {
                     player.play("spookLow");
                     shootingEffectRef.opacity = 0;
@@ -190,10 +190,13 @@ export function setControls(k: KaboomCtx, player: PlayerGameObj) {
 
     // Function acitvates when a key is released
     k.onKeyRelease((key) => {
-        if (key === "e") {
+        if (key === "shift") {
             if (player.isEmpty) {
                 player.play("shootingEffect")
             }
+            shootingEffectRef.opacity = 0;
+            player.isEmpty = false;
+            player.play("spookIdle");
         }
     });
 }
