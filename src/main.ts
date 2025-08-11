@@ -56,10 +56,20 @@ async function gameSetup() {
 
         // Setting cam size
         k.camScale(0.7, 0.7);
+        k.camPos(730, 700);
+
+
         k.onUpdate(() => {
-            if (ghost.pos.x < level1Layout.pos.x + 432){
-                k.camPos(ghost.pos.x + 500, 800);
+            if ((ghost.pos.x < level1Layout.pos.x + 432) && (ghost.pos.x > level1Layout.pos.x + 230)){
+                k.camPos(ghost.pos.x + 500, k.camPos().y);
             }
+        });
+
+         k.onUpdate(() => {
+            if ((ghost.pos.y < level1Layout.pos.y + 672) && (ghost.pos.y > level1Layout.pos.y + 420)){
+                k.camPos(k.camPos().x, ghost.pos.y );
+            }
+
         });
     });
 
