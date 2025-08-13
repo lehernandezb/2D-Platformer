@@ -1,5 +1,5 @@
 import { scale } from "./constants";
-import { makePlayer, setControls } from "./entities";
+import { makeGuyEnemy, makePlayer, setControls } from "./entities";
 import {k} from "./kaboomCtx";
 import { makeMap } from "./utils";
 
@@ -15,7 +15,7 @@ async function gameSetup() {
             spookShooting: 1,
             spookLow: 2,
             spookBeam: {from: 10, to: 17, speed: 10, loop: true},
-            guyWalk: {from: 19, to: 20, speed: 4, loop: true}
+            guyWalk: {from: 18, to: 19, speed: 4, loop: true}
         }
     });
 
@@ -40,9 +40,6 @@ async function gameSetup() {
         ]);
 
         k.add(level1Layout);
-
-        // Debug: log spawn points
-        console.log("Spawn points:", level1SpawnPoints);
 
         const ghost = makePlayer(
             k, 
@@ -71,6 +68,11 @@ async function gameSetup() {
             }
 
         });
+
+         // Adding guyEnemy to the game
+         for (const guy of level1SpawnPoints.Guy) {
+            makeGuyEnemy(k, guy.x, guy.y);
+          }
     });
 
     // Starting in level one 
