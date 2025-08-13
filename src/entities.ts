@@ -236,3 +236,21 @@ export function makeShootable(k: KaboomCtx, enemy: GameObj) {
         }
     });
 }
+
+export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number) {
+    const guy = k.add([
+        k.sprite("assets", {anim: "guyWalk"}),
+        k.scale(scale),
+        k.pos(posX * scale, posY * scale),
+        k.area({
+            shape: new k.Rect(k.vec2(2,3.9), 12, 12),
+            collisionIgnore: ["enemy"],
+        }),
+        k.body(),
+        k.state("idle", ["idle", "left", "right", "jump"]),
+        { isShootable: false, speed: 100},
+        "enemy"
+    ]);
+
+
+}
