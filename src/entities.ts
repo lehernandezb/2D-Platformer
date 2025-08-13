@@ -237,13 +237,24 @@ export function makeShootable(k: KaboomCtx, enemy: GameObj) {
     });
 }
 
+
+/**
+ * Make the guy Enemy and their walking physics
+ * 
+ * @param k 
+ * @param posX 
+ * @param posY 
+ * @returns 
+ */
 export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number) {
+
+    // Creating guy object
     const guy = k.add([
         k.sprite("assets", {anim: "guyWalk"}),
         k.scale(3),
         k.pos(posX * scale, posY * scale),
         k.area({
-            shape: new k.Rect(k.vec2(2,3.9), 12, 12),
+            shape: new k.Rect(k.vec2(2,3.9), 23, 24),
             collisionIgnore: ["enemy"],
         }),
         k.body(),
@@ -252,15 +263,17 @@ export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number) {
         "enemy"
     ]);
 
+    // Make him shootable
     makeShootable(k, guy);
 
+    // Movement of the chacracter
     guy.onStateEnter("idle", async () => {
         await k.wait(1);
         guy.enterState("left");
       });
     
     guy.onStateEnter("left", async () => {
-        guy.flipX = false;
+        guy.flipX = true;
         await k.wait(2);
         guy.enterState("right");
     });
@@ -270,7 +283,7 @@ export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number) {
     });
 
     guy.onStateEnter("right", async () => {
-        guy.flipX = true;
+        guy.flipX = false;
         await k.wait(2);
         guy.enterState("left");
     });
