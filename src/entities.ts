@@ -252,5 +252,32 @@ export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number) {
         "enemy"
     ]);
 
+    makeShootable(k, guy);
 
+    guy.onStateEnter("idle", async () => {
+        await k.wait(1);
+        guy.enterState("left");
+      });
+    
+    guy.onStateEnter("left", async () => {
+        guy.flipX = false;
+        await k.wait(2);
+        guy.enterState("right");
+    });
+
+    guy.onStateUpdate("left", () => {
+        guy.move(-guy.speed, 0);
+    });
+
+    guy.onStateEnter("right", async () => {
+        guy.flipX = true;
+        await k.wait(2);
+        guy.enterState("left");
+    });
+
+    guy.onStateUpdate("right", () => {
+        guy.move(guy.speed, 0);
+    });
+
+    return guy;
 }
