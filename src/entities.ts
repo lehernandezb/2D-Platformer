@@ -24,6 +24,8 @@ type PlayerGameObj = GameObj<
 >;
 
 
+
+
 /**
  * Method to make player and their logic
  * 
@@ -41,13 +43,14 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
         k.pos(posx * scale, posy * scale),
         k.scale(3),
         k.doubleJump(3),
-        k.health(3),
+        k.health(4),
         k.opacity(1),
         {
             speed: 300,
             direction: 'right',
             isShooting: false,
-            isEmpty: false
+            isEmpty: false,
+            health: 4
         },
         "player",
         
@@ -65,7 +68,7 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
         }
 
         // Player dies
-        if (player.hp() === 0) {
+        if (player.hp() === 1) {
             k.destroy(player);
             k.go("level-1");
             return;

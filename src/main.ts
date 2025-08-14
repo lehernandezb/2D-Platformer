@@ -62,6 +62,43 @@ async function gameSetup() {
         k.add(ghost);
         setControls(k, ghost);
 
+        // Health bar background
+        const healthBarBg = k.add([
+            k.rect(104, 14),     
+            k.pos(10, 10),       
+            k.color(0, 0, 0),     
+            k.fixed(),           
+            k.z(100),             
+        ])
+
+        // Actual health bar (foreground)
+        const healthBar = k.add([
+            k.rect(100, 10),
+            k.pos(12, 12),        
+            k.color(180, 55, 87),   
+            k.fixed(),
+            k.z(101),
+            { max: 4, current: ghost.health } // store data
+        ])
+
+        function updateHealthBar(current: number) {
+            const percent = current / healthBar.max
+            healthBar.width = 100 * percent
+            healthBar.color = percent < 0.3 ? rgb(255, 0, 0) : rgb(180, 55, 87)
+        }
+
+        // When player is hurt
+        ghost.onHurt(() => {
+            updateHealthBar(ghost.hp())
+        })
+
+        // When player is healed
+        ghost.onHeal(() => {
+            updateHealthBar(ghost.hp())
+        })
+    
+
+
         // Setting cam size
         k.camScale(0.7, 0.7);
         k.camPos(730, 700);
@@ -89,7 +126,7 @@ async function gameSetup() {
 
         // Access the data array
         const platform2D = to2DArray(platformLayer.data, 27);
-        
+
         // Adding guyEnemy to the game
         for (const guy of level1SpawnPoints.Guy) {
           makeGuyEnemy(k, guy.x, guy.y,platform2D);
@@ -101,3 +138,7 @@ async function gameSetup() {
 }
 
 gameSetup();
+
+function rgb(arg0: number, arg1: number, arg2: number): import("kaboom").Color {
+    throw new Error("Function not implemented.");
+}
