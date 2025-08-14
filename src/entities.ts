@@ -200,6 +200,7 @@ export function setControls(k: KaboomCtx, player: PlayerGameObj) {
             }
             shootingEffectRef.opacity = 0;
             player.isEmpty = false;
+            player.isShooting = false;
             player.play("spookIdle")
         }
     });
@@ -228,11 +229,7 @@ export function makeShootable(k: KaboomCtx, enemy: GameObj) {
     const playerRef = k.get("player")[0];
     enemy.onUpdate(() => {
         if (playerRef.isShooting && enemy.isShotable){
-            if(playerRef.direction === "right"){
-                enemy.move(-800,0);
-                return;
-            }
-            enemy.move(800,0);
+            k.destroy(enemy);
         }
     });
 }
