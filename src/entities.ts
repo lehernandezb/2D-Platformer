@@ -244,7 +244,7 @@ export function makeShootable(k: KaboomCtx, enemy: GameObj) {
  * @param platformData Array of platform data from map
  * @returns 
  */
-export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number, platformData: number[]) {
+export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number, platformData: number[][]) {
 
     // Creating guy object
     const guy = k.add([
@@ -261,46 +261,46 @@ export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number, platformD
         "enemy"
     ]);
 
-
-    // So mostly works but we just bascilly need to figure out which index it checks if it is empty. it should be the
-    // index underneith the character, and they check 4 to the left or right.
-    // CHECK IF TILE Y AND X ARE CORRECT
-
-
+    // Checks if there is a platform to the left or right of the enemy, and if they should walk on it
     const platformCheck = (check: string) => {
-        let marker: number = 0;
-        const tileSize : number = 16* scale; // your tile size
-        const tileX :number = Math.floor((guy.pos.x) / tileSize);
-        const tileY : number = Math.floor((guy.pos.y) / tileSize);
-        let baseIndex : number  = (tileY + 1) * 27 + tileX -1;
-        let output : number = 4;
-        
+
+        // magic numbers
+        const tileSize: number = 16 * scale;
+        const tileX: number = Math.floor(guy.pos.x / tileSize); // colummn
+        const tileY: number = Math.floor(guy.pos.y / tileSize) + 1; // row
+        let output: number = 4;
+
         if (check === "left") {
-            for (let i = 1; i < 4; i++) {
-                let idx = baseIndex - i;
-                if (idx >= 0 && idx < platformData.length && platformData[idx] === 0) {
-                    marker = idx;
-                    console.log(`Marker found (left): ${marker}`); // <-- Add this line
-                    output = i;
+            for (let i = 1; i <= 4; i++) {
+                let idx = tileX - i;
+                if (
+                    idx >= 0 &&
+                    idx < platformData[0].length &&
+                    tileY >= 0 &&
+                    tileY < platformData.length &&
+                    platformData[tileY + 1][idx] === 0
+                ) {
+                    output = i - .1;
                     break;
                 }
             }
         } else {
-            for (let i = 1; i < 4; i++) {
-                let idx = baseIndex + i;
-                if (idx >= 0 && idx < platformData.length && platformData[idx] === 0) {
-                    marker = idx;
-                    console.log(`Marker found (right): ${marker}`); // <-- Add this line  
-                    output = i;                  
+            for (let i = 1; i <= 4; i++) {
+                let idx = tileX + i;
+                if (
+                    idx >= 0 &&
+                    idx < platformData[0].length &&
+                    tileY >= 0 &&
+                    tileY < platformData.length &&
+                    platformData[tileY + 1][idx] === 0
+                ) {
+                    output = i - 1;
                     break;
                 }
             }
         }
-        console.log(`guy.pos.x: ${guy.pos.x}, guy.pos.y: ${guy.pos.y}`);
-        console.log(`tileX: ${tileX}, tileY: ${tileY}, baseIndex: ${baseIndex}`);
-        console.log(output)
 
-        return output/2;
+        return output / 2;
     };
 
     // Make him shootable

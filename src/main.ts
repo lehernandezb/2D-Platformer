@@ -3,6 +3,15 @@ import { makeGuyEnemy, makePlayer, setControls } from "./entities";
 import {k} from "./kaboomCtx";
 import { makeMap } from "./utils";
 
+
+function to2DArray(flatArray: number[], width: number): number[][] {
+    const result: number[][] = [];
+    for (let i = 0; i < flatArray.length; i += width) {
+        result.push(flatArray.slice(i, i + width));
+    }
+    return result;
+}
+
 // game play functuion
 async function gameSetup() {
 
@@ -79,11 +88,11 @@ async function gameSetup() {
         const platformLayer = mapData.layers.find((layer: any) => layer.name === "platform");
 
         // Access the data array
-        const platformData = platformLayer.data;
-
+        const platform2D = to2DArray(platformLayer.data, 27);
+        
         // Adding guyEnemy to the game
         for (const guy of level1SpawnPoints.Guy) {
-          makeGuyEnemy(k, guy.x, guy.y, platformData );
+          makeGuyEnemy(k, guy.x, guy.y,platform2D);
         }
     });
 

@@ -318,8 +318,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":264,
-                 "y":28.5
+                 "x":264.5,
+                 "y":26.5
                 }, 
                 {
                  "height":0,
@@ -340,7 +340,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":27,
+ "nextobjectid":28,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
