@@ -241,9 +241,10 @@ export function makeShootable(k: KaboomCtx, enemy: GameObj) {
  * @param k 
  * @param posX 
  * @param posY 
+ * @param platformData Array of platform data from map
  * @returns 
  */
-export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number) {
+export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number, platformData: number[]) {
 
     // Creating guy object
     const guy = k.add([
@@ -260,6 +261,48 @@ export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number) {
         "enemy"
     ]);
 
+
+    // So mostly works but we just bascilly need to figure out which index it checks if it is empty. it should be the
+    // index underneith the character, and they check 4 to the left or right.
+    // CHECK IF TILE Y AND X ARE CORRECT
+
+
+    const platformCheck = (check: string) => {
+        let marker: number = 0;
+        const tileSize : number = 16* scale; // your tile size
+        const tileX :number = Math.floor((guy.pos.x) / tileSize);
+        const tileY : number = Math.floor((guy.pos.y) / tileSize);
+        let baseIndex : number  = (tileY + 1) * 27 + tileX -1;
+        let output : number = 4;
+        
+        if (check === "left") {
+            for (let i = 1; i < 4; i++) {
+                let idx = baseIndex - i;
+                if (idx >= 0 && idx < platformData.length && platformData[idx] === 0) {
+                    marker = idx;
+                    console.log(`Marker found (left): ${marker}`); // <-- Add this line
+                    output = i;
+                    break;
+                }
+            }
+        } else {
+            for (let i = 1; i < 4; i++) {
+                let idx = baseIndex + i;
+                if (idx >= 0 && idx < platformData.length && platformData[idx] === 0) {
+                    marker = idx;
+                    console.log(`Marker found (right): ${marker}`); // <-- Add this line  
+                    output = i;                  
+                    break;
+                }
+            }
+        }
+        console.log(`guy.pos.x: ${guy.pos.x}, guy.pos.y: ${guy.pos.y}`);
+        console.log(`tileX: ${tileX}, tileY: ${tileY}, baseIndex: ${baseIndex}`);
+        console.log(output)
+
+        return output/2;
+    };
+
     // Make him shootable
     makeShootable(k, guy);
 
@@ -271,7 +314,7 @@ export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number) {
     
     guy.onStateEnter("left", async () => {
         guy.flipX = true;
-        await k.wait(2);
+        await k.wait(platformCheck("left"));
         guy.enterState("right");
     });
 
@@ -281,7 +324,7 @@ export function makeGuyEnemy(k: KaboomCtx, posX: number, posY: number) {
 
     guy.onStateEnter("right", async () => {
         guy.flipX = false;
-        await k.wait(2);
+        await k.wait(platformCheck("right"));
         guy.enterState("left");
     });
 

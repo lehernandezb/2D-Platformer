@@ -30,8 +30,10 @@ async function gameSetup() {
         "level-1"
     );
 
+    
+
     // loading scene
-    k.scene("level-1", () => {
+    k.scene("level-1", async () => {
         k.setGravity(2100);
         k.add([
             k.rect(k.width(), k.height()),
@@ -69,10 +71,20 @@ async function gameSetup() {
 
         });
 
-         // Adding guyEnemy to the game
-         for (const guy of level1SpawnPoints.Guy) {
-            makeGuyEnemy(k, guy.x, guy.y);
-          }
+        // Load the map file
+        const response = await fetch("./level-1.tmj");
+        const mapData = await response.json();
+
+        // Find the platform layer
+        const platformLayer = mapData.layers.find((layer: any) => layer.name === "platform");
+
+        // Access the data array
+        const platformData = platformLayer.data;
+
+        // Adding guyEnemy to the game
+        for (const guy of level1SpawnPoints.Guy) {
+          makeGuyEnemy(k, guy.x, guy.y, platformData );
+        }
     });
 
     // Starting in level one 

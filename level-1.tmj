@@ -306,8 +306,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":192.333333333333,
-                 "y":179
+                 "x":199.333333333333,
+                 "y":184.5
                 }, 
                 {
                  "height":0,
@@ -318,20 +318,20 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":201.5,
-                 "y":33
+                 "x":264,
+                 "y":28.5
                 }, 
                 {
                  "height":0,
                  "id":24,
-                 "name":"Guy]",
+                 "name":"Guy",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":303,
-                 "y":152
+                 "x":297.5,
+                 "y":154.5
                 }],
          "opacity":1,
          "type":"objectgroup",
