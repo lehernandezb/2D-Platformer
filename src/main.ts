@@ -56,7 +56,8 @@ async function gameSetup() {
         Level: string,
         tmjFile: string,
         cameSize : number,
-        numbersForCam : number[]
+        numbersForCam : number[],
+        levelLocations: string[]
     ) {
         k.setGravity(2100);
         k.add([
@@ -70,7 +71,9 @@ async function gameSetup() {
         const ghost = makePlayer(
             k, 
             levelSpawnPoints.player[0].x,
-            levelSpawnPoints.player[0].y
+            levelSpawnPoints.player[0].y,
+            levelLocations[0],
+            levelLocations[1]
         );
 
         // Adding player
@@ -158,12 +161,12 @@ async function gameSetup() {
 
     // loading scene 1
     k.scene("level-1", async () => {
-        await createlevel(level1Layout, level1SpawnPoints, "level - 1", "./level-1.tmj", 0.7, [432, 230, 672, 420, 730, 700]);
+        await createlevel(level1Layout, level1SpawnPoints, "level - 1", "./level-1.tmj", 0.7, [432, 230, 672, 420, 730, 700], ["level-2", "level-1"]);
     });
 
     // loading scene 2
     k.scene("level-2", async () => {
-        await createlevel(level2Layout, level2SpawnPoints, "level - 2", "./level-2.tmj", 0.7, [1960, 230, 900, 420, 730, 900]);
+        await createlevel(level2Layout, level2SpawnPoints, "level - 2", "./level-2.tmj", 0.7, [1960, 230, 900, 420, 730, 900], ["level-3", "level-2"]);
     });
 
 

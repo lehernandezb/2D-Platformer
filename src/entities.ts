@@ -33,7 +33,7 @@ type PlayerGameObj = GameObj<
  * @param posx postion of player on x axis
  * @param posy postion of player on y axis
  */
-export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
+export function makePlayer(k : KaboomCtx, posx : number, posy : number, exit: string, death: string) {
 
     // Player object
     const player = k.make([
@@ -70,7 +70,7 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
         // Player dies
         if (player.hp() === 1) {
             k.destroy(player);
-            k.go("level-1");
+            k.go(death);
             return;
         }
 
@@ -97,7 +97,7 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number) {
 
     // Going to next level
     player.onCollide("exit", () => {
-        k.go("level-2");
+        k.go(exit);
     });
 
     // Shooting animation, will always be on, only changed opacity
