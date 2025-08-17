@@ -84,7 +84,7 @@ async function gameSetup() {
         function updateHealthBar(current: number) {
             const percent = current / healthBar.max
             healthBar.width = 100 * percent
-            healthBar.color = percent < 0.3 ? rgb(255, 0, 0) : rgb(180, 55, 87)
+            healthBar.color = percent < 0.3 ? k.rgb(49, 20, 50) : k.rgb(180, 55, 87)
         }
 
         // When player is hurt
@@ -97,7 +97,16 @@ async function gameSetup() {
             updateHealthBar(ghost.hp())
         })
     
-
+        k.add([
+            k.text("Level - 1", {
+                size: 16,
+                font: "Trebuchet MS",
+            } ),
+            k.pos(120,11.5),
+            k.fixed(),
+            k.color(0,0,0),
+            k.z(102),
+        ]);
 
         // Setting cam size
         k.camScale(0.7, 0.7);
