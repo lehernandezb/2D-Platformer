@@ -136,7 +136,7 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number, exit: st
     // If player falls then respon (AKA death)
     player.onUpdate(() =>{
         if (player.pos.y > 2000) {
-            k.go("level-1");
+            k.go(death);
         }
     });
 

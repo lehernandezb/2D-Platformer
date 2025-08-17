@@ -73,7 +73,7 @@ async function gameSetup() {
             levelSpawnPoints.player[0].x,
             levelSpawnPoints.player[0].y,
             levelLocations[0],
-            levelLocations[1]
+            levelLocations[1],
         );
 
         // Adding player
@@ -150,8 +150,8 @@ async function gameSetup() {
         // Find the platform layer
         const platformLayer = mapData.layers.find((layer: any) => layer.name === "platform");
 
-        // Access the data array
-        const platform2D = to2DArray(platformLayer.data, 27);
+        // Access the data array and convert to a 2D array with the width of the map
+        const platform2D = to2DArray(platformLayer.data, numbersForCam[6]);
 
         // Adding guyEnemy to the game
         for (const guy of levelSpawnPoints.Guy) {
@@ -161,12 +161,12 @@ async function gameSetup() {
 
     // loading scene 1
     k.scene("level-1", async () => {
-        await createlevel(level1Layout, level1SpawnPoints, "level - 1", "./level-1.tmj", 0.7, [432, 230, 672, 420, 730, 700], ["level-2", "level-1"]);
+        await createlevel(level1Layout, level1SpawnPoints, "level - 1", "./level-1.tmj", 0.7, [432, 230, 672, 420, 730, 700, 27], ["level-2", "level-1"]);
     });
 
     // loading scene 2
     k.scene("level-2", async () => {
-        await createlevel(level2Layout, level2SpawnPoints, "level - 2", "./level-2.tmj", 0.7, [1960, 230, 900, 420, 730, 900], ["level-3", "level-2"]);
+        await createlevel(level2Layout, level2SpawnPoints, "level - 2", "./level-2.tmj", 0.7, [1960, 230, 900, 420, 730, 900, 50], ["level-3", "level-2"]);
     });
 
 
