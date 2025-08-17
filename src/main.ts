@@ -1,3 +1,4 @@
+import type { GameObj } from "kaboom";
 import { scale } from "./constants";
 import { makeGuyEnemy, makePlayer, setControls } from "./entities";
 import {k} from "./kaboomCtx";
@@ -11,6 +12,8 @@ function to2DArray(flatArray: number[], width: number): number[][] {
     }
     return result;
 }
+
+
 
 // game play functuion
 async function gameSetup() {
@@ -28,21 +31,33 @@ async function gameSetup() {
         }
     });
 
-    // loading first level
+    // loading levels
     k.loadSprite("level-1", "./level-1.png");
+    k.loadSprite("level-2", "./level-2.png");
 
     k.add([k.rect(k.width(), k.height()), k.color(0, 0, 0), k.fixed()]);
 
-    //loading map
+    //loading maps
     const {map: level1Layout, spawnPoints: level1SpawnPoints} = await makeMap(
         k,
         "level-1"
     );
 
-    
+    const {map: level2Layout, spawnPoints: level2SpawnPoints} = await makeMap(
+        k,
+        "level-2"
+    );
 
-    // loading scene
-    k.scene("level-1", async () => {
+
+    // Scene creating function
+    async function createlevel (
+        levelLayout: GameObj,
+        levelSpawnPoints: { [key: string]: { x: number; y: number; }[] },
+        Level: string,
+        tmjFile: string,
+        cameSize : number,
+        numbersForCam : number[]
+    ) {
         k.setGravity(2100);
         k.add([
             k.rect(k.width(), k.height()),
@@ -50,12 +65,12 @@ async function gameSetup() {
             k.fixed(),
         ]);
 
-        k.add(level1Layout);
+        k.add(levelLayout);
 
         const ghost = makePlayer(
             k, 
-            level1SpawnPoints.player[0].x,
-            level1SpawnPoints.player[0].y
+            levelSpawnPoints.player[0].x,
+            levelSpawnPoints.player[0].y
         );
 
         // Adding player
@@ -96,9 +111,9 @@ async function gameSetup() {
         ghost.onHeal(() => {
             updateHealthBar(ghost.hp())
         })
-    
+
         k.add([
-            k.text("Level - 1", {
+            k.text(Level, {
                 size: 16,
                 font: "Trebuchet MS",
             } ),
@@ -109,25 +124,24 @@ async function gameSetup() {
         ]);
 
         // Setting cam size
-        k.camScale(0.7, 0.7);
-        k.camPos(730, 700);
+        k.camScale(cameSize, cameSize);
+        k.camPos(numbersForCam[4], numbersForCam[5]);
 
 
         k.onUpdate(() => {
-            if ((ghost.pos.x < level1Layout.pos.x + 432) && (ghost.pos.x > level1Layout.pos.x + 230)){
+            if ((ghost.pos.x < levelLayout.pos.x + numbersForCam[0]) && (ghost.pos.x > levelLayout.pos.x + numbersForCam[1])){
                 k.camPos(ghost.pos.x + 500, k.camPos().y);
             }
         });
 
-         k.onUpdate(() => {
-            if ((ghost.pos.y < level1Layout.pos.y + 672) && (ghost.pos.y > level1Layout.pos.y + 420)){
+        k.onUpdate(() => {
+            if ((ghost.pos.y < levelLayout.pos.y + numbersForCam[2]) && (ghost.pos.y > levelLayout.pos.y + numbersForCam[3])){
                 k.camPos(k.camPos().x, ghost.pos.y );
             }
 
         });
-
         // Load the map file
-        const response = await fetch("./level-1.tmj");
+        const response = await fetch(tmjFile);
         const mapData = await response.json();
 
         // Find the platform layer
@@ -137,17 +151,24 @@ async function gameSetup() {
         const platform2D = to2DArray(platformLayer.data, 27);
 
         // Adding guyEnemy to the game
-        for (const guy of level1SpawnPoints.Guy) {
+        for (const guy of levelSpawnPoints.Guy) {
           makeGuyEnemy(k, guy.x, guy.y,platform2D);
         }
+    }
+
+    // loading scene 1
+    k.scene("level-1", async () => {
+        await createlevel(level1Layout, level1SpawnPoints, "level - 1", "./level-1.tmj", 0.7, [432, 230, 672, 420, 730, 700]);
     });
+
+    // loading scene 2
+    k.scene("level-2", async () => {
+        await createlevel(level2Layout, level2SpawnPoints, "level - 2", "./level-2.tmj", 0.7, [1960, 230, 900, 420, 730, 900]);
+    });
+
 
     // Starting in level one 
     k.go("level-1");
 }
 
 gameSetup();
-
-function rgb(arg0: number, arg1: number, arg2: number): import("kaboom").Color {
-    throw new Error("Function not implemented.");
-}
