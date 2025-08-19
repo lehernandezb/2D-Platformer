@@ -34,6 +34,7 @@ async function gameSetup() {
     // loading levels
     k.loadSprite("level-1", "./level-1.png");
     k.loadSprite("level-2", "./level-2.png");
+    k.loadSprite("level-3", "./level-3.png");
 
     k.add([k.rect(k.width(), k.height()), k.color(0, 0, 0), k.fixed()]);
 
@@ -46,6 +47,11 @@ async function gameSetup() {
     const {map: level2Layout, spawnPoints: level2SpawnPoints} = await makeMap(
         k,
         "level-2"
+    );
+
+    const {map: level3Layout, spawnPoints: level3SpawnPoints} = await makeMap(
+        k,
+        "level-3"
     );
 
 
@@ -168,6 +174,12 @@ async function gameSetup() {
     k.scene("level-2", async () => {
         await createlevel(level2Layout, level2SpawnPoints, "level - 2", "./level-2.tmj", 0.7, [1960, 230, 900, 420, 730, 900, 50], ["level-3", "level-2"]);
     });
+
+    // loading scene 3
+    k.scene("level-3", async () => {
+        await createlevel(level3Layout, level3SpawnPoints, "level - 3", "./level-3.tmj", 0.7, [1960, 230, 900, 420, 730, 420, 50], ["level-4", "level-3"]);
+    });
+
 
 
     // Starting in level one 
