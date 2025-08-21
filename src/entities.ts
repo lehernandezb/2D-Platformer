@@ -23,9 +23,6 @@ type PlayerGameObj = GameObj<
     }
 >;
 
-
-
-
 /**
  * Method to make player and their logic
  * 
@@ -98,6 +95,20 @@ export function makePlayer(k : KaboomCtx, posx : number, posy : number, exit: st
     // Going to next level
     player.onCollide("exit", () => {
         k.go(exit);
+    });
+
+    // Colliding on spikes
+    player.onCollide("spikes", () => {
+
+        // Player dies
+        if (player.hp() === 1) {
+            k.destroy(player);
+            k.go(death);
+            return;
+        }
+
+        // Player hurt
+        player.hurt();
     });
 
     // Shooting animation, will always be on, only changed opacity

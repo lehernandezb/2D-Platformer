@@ -106,137 +106,6 @@
         }, 
         {
          "draworder":"topdown",
-         "id":6,
-         "name":"spikes",
-         "objects":[
-                {
-                 "height":0,
-                 "id":27,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":7,
-                         "y":-7.5
-                        }, 
-                        {
-                         "x":14.375,
-                         "y":0.375
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":145.375,
-                 "y":271.875
-                }, 
-                {
-                 "height":0,
-                 "id":28,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":7.375,
-                         "y":-7.875
-                        }, 
-                        {
-                         "x":14.25,
-                         "y":-0.25
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":193.125,
-                 "y":128.125
-                }, 
-                {
-                 "height":0,
-                 "id":29,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":7.125,
-                         "y":-8.625
-                        }, 
-                        {
-                         "x":14.875,
-                         "y":0
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":321.125,
-                 "y":112.5
-                }, 
-                {
-                 "height":0,
-                 "id":30,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":7,
-                         "y":-7.5
-                        }, 
-                        {
-                         "x":14.625,
-                         "y":0.375
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":257.375,
-                 "y":207.5
-                }, 
-                {
-                 "height":0,
-                 "id":31,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":7.625,
-                         "y":-8
-                        }, 
-                        {
-                         "x":14.25,
-                         "y":-0.25
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":624.875,
-                 "y":192
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
          "id":4,
          "name":"colliders",
          "objects":[
@@ -404,6 +273,61 @@
                  "width":19.6666666666667,
                  "x":757.333333333333,
                  "y":144.333333333333
+                }, 
+                {
+                 "height":8.25,
+                 "id":47,
+                 "name":"spikes",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":13.5,
+                 "x":145.333333333333,
+                 "y":263.375
+                }, 
+                {
+                 "height":7.75,
+                 "id":48,
+                 "name":"spikes",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15.25,
+                 "x":192.583333333333,
+                 "y":119.875
+                }, 
+                {
+                 "height":7,
+                 "id":49,
+                 "name":"spikes",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":14.75,
+                 "x":320.583333333333,
+                 "y":104.375
+                }, 
+                {
+                 "height":9.75,
+                 "id":50,
+                 "name":"spikes",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15.5,
+                 "x":256.083333333333,
+                 "y":199.375
+                }, 
+                {
+                 "height":8.75,
+                 "id":51,
+                 "name":"spikes",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":14.75,
+                 "x":624.583333333333,
+                 "y":183.625
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -490,12 +414,12 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":32,
+ "nextobjectid":52,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
