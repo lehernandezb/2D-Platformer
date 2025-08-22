@@ -3,6 +3,7 @@ import { scale } from "./constants";
 import { makeGuyEnemy, makePlayer, setControls } from "./entities";
 import {k} from "./kaboomCtx";
 import { makeMap } from "./utils";
+import kaboom from "kaboom";
 
 
 function to2DArray(flatArray: number[], width: number): number[][] {
@@ -13,7 +14,11 @@ function to2DArray(flatArray: number[], width: number): number[][] {
     return result;
 }
 
-
+kaboom({
+    pixelDensity: 1,   
+    crisp: true, 
+    scale: 4,
+})
 
 // game play functuion
 async function gameSetup() {
@@ -136,19 +141,25 @@ async function gameSetup() {
         k.camScale(cameSize, cameSize);
         k.camPos(numbersForCam[4], numbersForCam[5]);
 
-
         k.onUpdate(() => {
-            if ((ghost.pos.x < levelLayout.pos.x + numbersForCam[0]) && (ghost.pos.x > levelLayout.pos.x + numbersForCam[1])){
-                k.camPos(ghost.pos.x + 500, k.camPos().y);
+            let camX = k.camPos().x;
+            let camY = k.camPos().y;
+        
+            if ((ghost.pos.x < levelLayout.pos.x + numbersForCam[0]) && (ghost.pos.x > levelLayout.pos.x + numbersForCam[1])) {
+                camX = ghost.pos.x + 500;
             }
+        
+            if ((ghost.pos.y < levelLayout.pos.y + numbersForCam[2]) && (ghost.pos.y > levelLayout.pos.y + numbersForCam[3])) {
+                camY = ghost.pos.y;
+            }
+        
+            const smoothX = k.camPos().x + (camX - k.camPos().x) * 0.2;
+            const smoothY = k.camPos().y + (camY - k.camPos().y) * 0.2;
+
+            // round before applying
+            k.camPos(Math.round(smoothX), Math.round(smoothY));
         });
 
-        k.onUpdate(() => {
-            if ((ghost.pos.y < levelLayout.pos.y + numbersForCam[2]) && (ghost.pos.y > levelLayout.pos.y + numbersForCam[3])){
-                k.camPos(k.camPos().x, ghost.pos.y );
-            }
-
-        });
         // Load the map file
         const response = await fetch(tmjFile);
         const mapData = await response.json();
