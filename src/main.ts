@@ -1,9 +1,7 @@
 import type { GameObj } from "kaboom";
-import { scale } from "./constants";
 import { makeGuyEnemy, makePlayer, setControls } from "./entities";
 import {k} from "./kaboomCtx";
 import { makeMap } from "./utils";
-import kaboom from "kaboom";
 
 
 function to2DArray(flatArray: number[], width: number): number[][] {
@@ -14,11 +12,6 @@ function to2DArray(flatArray: number[], width: number): number[][] {
     return result;
 }
 
-kaboom({
-    pixelDensity: 1,   
-    crisp: true, 
-    scale: 4,
-})
 
 // game play functuion
 async function gameSetup() {
@@ -92,7 +85,7 @@ async function gameSetup() {
         setControls(k, ghost);
 
         // Health bar background
-        const healthBarBg = k.add([
+        k.add([
             k.rect(104, 14),     
             k.pos(10, 10),       
             k.color(0, 0, 0),     
