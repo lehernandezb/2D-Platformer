@@ -3,7 +3,7 @@ import { makeGuyEnemy, makePlayer, setControls } from "./entities";
 import {k} from "./kaboomCtx";
 import { makeMap } from "./utils";
 
-
+// Function to convert an array into a 2D array
 function to2DArray(flatArray: number[], width: number): number[][] {
     const result: number[][] = [];
     for (let i = 0; i < flatArray.length; i += width) {
